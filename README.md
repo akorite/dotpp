@@ -1,4 +1,4 @@
-<![CDATA[<div align="center">
+<div align="center">
 
 # dotpp
 
@@ -133,7 +133,7 @@ sequenceDiagram
 
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/dotpp.git
+git clone https://github.com/akorite/dotpp.git
 cd dotpp
 
 # Install dependencies
@@ -229,10 +229,36 @@ Contributions welcome. Please:
 MIT
 
 ---
+## Attribution
 
+This project is a fork of [pi](https://github.com/earendil-works/pi), an open-source AI coding agent harness by [Earendil Works](https://github.com/earendil-works). The pi agent harness provides the core infrastructure including the agent runtime, tool system, unified LLM API, and terminal UI components that power dotpp.
+
+### Libraries Used
+
+| Library | Purpose | License |
+|---------|---------|---------|
+| [pi](https://github.com/earendil-works/pi) | Agent harness, runtime, and TUI components | MIT |
+| [Anthropic SDK](https://github.com/anthropics/anthropic-sdk-typescript) | Claude API integration | MIT |
+| [OpenAI SDK](https://github.com/openai/openai-node) | OpenAI API integration | Apache-2.0 |
+| [Google AI SDK](https://github.com/googleapis/google-ai-nodejs-sdk) | Gemini API integration | Apache-2.0 |
+| [Mistral SDK](https://github.com/mistralai/client-ts) | Mistral API integration | MIT |
+| [chalk](https://github.com/chalk/chalk) | Terminal styling | MIT |
+| [vitest](https://github.com/vitest-dev/vitest) | Test framework | MIT |
+| [TypeBox](https://github.com/sinclairzx81/typebox) | Runtime type validation | MIT |
+
+### Acknowledgments
+
+- [Earendil Works](https://github.com/earendil-works) for creating and maintaining the pi agent harness
+- The competitive programming community for inspiration and problem formats
+- All contributors to the libraries listed above
+
+### License
+
+This project is licensed under the MIT License, same as the original pi project.
+
+---
 <div align="center">
 
-**Built with [pi](https://github.com/earendil-works/pi) agent harness.**
+**Forked from [pi](https://github.com/earendil-works/pi) by [Earendil Works](https://github.com/earendil-works)**
 
 </div>
-]]>
