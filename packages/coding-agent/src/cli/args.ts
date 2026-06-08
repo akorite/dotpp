@@ -2,7 +2,7 @@
  * CLI argument parsing and help display
  */
 
-import type { ThinkingLevel } from "@earendil-works/pi-agent-core";
+import type { ThinkingLevel } from "@dotpp/agent-core";
 import chalk from "chalk";
 import { APP_NAME, CONFIG_DIR_NAME, ENV_AGENT_DIR, ENV_SESSION_DIR } from "../config.ts";
 import type { ExtensionFlag } from "../core/extensions/types.ts";
@@ -44,6 +44,8 @@ export interface Args {
 	noThemes?: boolean;
 	noContextFiles?: boolean;
 	listModels?: string | true;
+	explain?: boolean;
+	solve?: boolean;
 	offline?: boolean;
 	verbose?: boolean;
 	projectTrustOverride?: boolean;
@@ -181,8 +183,11 @@ export function parseArgs(args: string[]): Args {
 			result.projectTrustOverride = true;
 		} else if (arg === "--no-approve" || arg === "-na") {
 			result.projectTrustOverride = false;
+		} else if (arg === "--explain") {
+			result.explain = true;
+		} else if (arg === "solve") {
+			result.solve = true;
 		} else if (arg === "--offline") {
-			result.offline = true;
 		} else if (arg.startsWith("@")) {
 			result.fileArgs.push(arg.slice(1)); // Remove @ prefix
 		} else if (arg.startsWith("--")) {
@@ -234,7 +239,8 @@ ${chalk.bold("Commands:")}
                                  List installed extensions from settings
   ${APP_NAME} config [--no-approve]
                                  Open TUI to enable/disable package resources
-  ${APP_NAME} <command> --help          Show help for install/remove/uninstall/update/list
+  ${APP_NAME} solve [--explain]        Solve a competitive programming problem interactively
+  ${APP_NAME} <command> --help          Show help for install/remove/uninstall/update/list/solve
 
 ${chalk.bold("Options:")}
   --provider <name>              Provider name (default: google)
@@ -276,6 +282,7 @@ ${chalk.bold("Options:")}
   --approve, -a                  Trust project-local files for this run
   --no-approve, -na              Ignore project-local files for this run
   --offline                      Disable startup network operations (same as PI_OFFLINE=1)
+  --explain                      Include approach explanation with solution (for solve command)
   --help, -h                     Show this help
   --version, -v                  Show version number
 
@@ -306,6 +313,11 @@ ${chalk.bold("Examples:")}
   # Use different model
   ${APP_NAME} --provider openai --model gpt-4o-mini "Help me refactor this code"
 
+  # Solve a competitive programming problem
+  ${APP_NAME} solve
+
+  # Solve with explanation
+  ${APP_NAME} solve --explain
   # Use model with provider prefix (no --provider needed)
   ${APP_NAME} --model openai/gpt-4o "Help me refactor this code"
 
