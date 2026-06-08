@@ -11,50 +11,14 @@
 [![Node.js](https://img.shields.io/badge/Node.js-22+-green.svg)](https://nodejs.org/)
 
 ---
-
 A terminal-based agent that takes competitive programming problems and returns finished solutions. Enter the problem once, get the code.
-
-```
-$ dotpp solve
-
-╔══════════════════════════════════════════════════════════╗
-║  Competitive Programming Solver                         ║
-╠══════════════════════════════════════════════════════════╣
-║                                                         ║
-║  Title: Two Sum                                         ║
-║  ──────────────────────────────────────────────          ║
-║  Statement: Given an array of integers and a target,    ║
-║  return indices of two numbers that add up to target.   ║
-║                                                         ║
-║  Examples:                                              ║
-║  ┌─ Example 1 ──────────────────────────────────────┐   ║
-║  │  Input:  [2,7,11,15], target=9                   │   ║
-║  │  Output: [0,1]                                   │   ║
-║  │  Why:    indices 0 and 1 sum to 9                │   ║
-║  └──────────────────────────────────────────────────┘   ║
-║  [+ Add Example]                                        ║
-║                                                         ║
-║  [Submit]  [Cancel]                                     ║
-╚══════════════════════════════════════════════════════════╝
-
-Solving...
-
-╔══════════════════════════════════════════════════════════╗
-║  Solution                                               ║
-╠══════════════════════════════════════════════════════════╣
-║  def twoSum(nums, target):                              ║
-║      seen = {}                                          ║
-║      for i, n in enumerate(nums):                       ║
-║          complement = target - n                        ║
-║          if complement in seen:                         ║
-║              return [seen[complement], i]               ║
-║          seen[n] = i                                    ║
-║  return []                                              ║
-╚══════════════════════════════════════════════════════════╝
-
-Provide feedback? (y/n): _
-```
-
+**Features:**
+- Structured problem entry with title, statement, and unlimited examples
+- Optional explanation field for each example to help the LLM understand context
+- Code-only or code-with-explanation output modes
+- Multi-turn iteration with feedback
+- Language-agnostic solutions (Python, C++, Java, Rust, and more)
+- Supports Claude, GPT-4, Gemini, Mistral, and 900+ other models
 </div>
 
 ## Why dotpp?
