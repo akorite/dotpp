@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { ExampleRow } from "./example-row";
+import { ExampleRow } from "./example-row.ts";
 
 describe("ExampleRow", () => {
 	it("creates a row with index", () => {

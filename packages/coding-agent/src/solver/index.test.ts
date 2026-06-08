@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { Problem, SolutionRequest, SolutionResponse } from "./types";
+import type { Problem, SolutionRequest, SolutionResponse } from "./types.ts";
 
 describe("solver types integration", () => {
 	it("creates a complete SolutionRequest", () => {

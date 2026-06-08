@@ -1,9 +1,9 @@
 import type { Api, Model } from "@dotpp/ai";
 import { ProcessTerminal, TUI } from "@dotpp/tui";
 import chalk from "chalk";
-import { ProblemForm } from "../forms/problem-form";
-import { solve, solveWithFeedback } from "../solver/index";
-import type { Problem, SolutionRequest, SolutionResponse } from "../solver/types";
+import { ProblemForm } from "../forms/problem-form.ts";
+import { solve, solveWithFeedback } from "../solver/index.ts";
+import type { Problem, SolutionRequest, SolutionResponse } from "../solver/types.ts";
 
 interface SolveOptions {
 	/** Enable explanation mode by default */

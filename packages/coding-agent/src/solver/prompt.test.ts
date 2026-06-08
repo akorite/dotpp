@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { codeOnlyPrompt, codeWithExplanationPrompt, extractCode, feedbackPrompt } from "./prompt";
-import type { Problem } from "./types";
+import { codeOnlyPrompt, codeWithExplanationPrompt, extractCode, feedbackPrompt } from "./prompt.ts";
+import type { Problem } from "./types.ts";
 
 const twoSum: Problem = {
 	title: "Two Sum",

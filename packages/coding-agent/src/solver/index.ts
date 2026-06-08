@@ -1,6 +1,6 @@
 import { type Api, type Context, complete, type Model } from "@dotpp/ai";
-import { codeOnlyPrompt, codeWithExplanationPrompt, extractCode, feedbackPrompt } from "./prompt";
-import type { Problem, SolutionRequest, SolutionResponse } from "./types";
+import { codeOnlyPrompt, codeWithExplanationPrompt, extractCode, feedbackPrompt } from "./prompt.ts";
+import type { Problem, SolutionRequest, SolutionResponse } from "./types.ts";
 
 /**
  * Solve a problem using the LLM.

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { Example, Problem, SolutionRequest, SolutionResponse } from "./types";
+import type { Example, Problem, SolutionRequest, SolutionResponse } from "./types.ts";
 
 describe("Example", () => {
 	it("creates an example with explanation", () => {

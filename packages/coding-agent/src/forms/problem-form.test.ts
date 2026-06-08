@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { ProblemForm } from "./problem-form";
+import { ProblemForm } from "./problem-form.ts";
 
 describe("ProblemForm", () => {
 	it("creates a form with default fields", () => {

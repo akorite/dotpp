@@ -1,7 +1,7 @@
 import type { Component, Focusable } from "@dotpp/tui";
 import { Container, Input, Text } from "@dotpp/tui";
-import type { Problem } from "../solver/types";
-import { ExampleRow } from "./example-row";
+import type { Problem } from "../solver/types.ts";
+import { ExampleRow } from "./example-row.ts";
 
 /**
  * Interactive TUI form for entering competitive programming problems.

@@ -1,4 +1,4 @@
-import type { Problem } from "./types";
+import type { Problem } from "./types.ts";
 
 /**
  * Format a Problem into a prompt-ready string for the LLM.

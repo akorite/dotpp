@@ -1,6 +1,6 @@
 import type { Component } from "@dotpp/tui";
 import { Container, Input, Text } from "@dotpp/tui";
-import type { Example } from "../solver/types";
+import type { Example } from "../solver/types.ts";
 
 /**
  * A row representing a single input/output example with optional explanation.
