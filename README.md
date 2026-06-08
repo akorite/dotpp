@@ -1,99 +1,238 @@
-<p align="center">
-  <a href="https://pi.dev">
-    <img alt="pi logo" src="https://pi.dev/logo-auto.svg" width="128">
-  </a>
-</p>
-<p align="center">
-  <a href="https://discord.com/invite/3cU7Bz4UPx"><img alt="Discord" src="https://img.shields.io/badge/discord-community-5865F2?style=flat-square&logo=discord&logoColor=white" /></a>
-</p>
-<p align="center">
-  <a href="https://pi.dev">pi.dev</a> domain graciously donated by
-  <br /><br />
-  <a href="https://exe.dev"><img src="packages/coding-agent/docs/images/exy.png" alt="Exy mascot" width="48" /><br />exe.dev</a>
-</p>
+<![CDATA[<div align="center">
 
-> New issues and PRs from new contributors are auto-closed by default. Maintainers review auto-closed issues daily. See [CONTRIBUTING.md](CONTRIBUTING.md).
+# dotpp
+
+**Competitive Programming Agent**
+
+*Solve problems, not boilerplate.*
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue.svg)](https://www.typescriptlang.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-22+-green.svg)](https://nodejs.org/)
 
 ---
 
-# Pi Agent Harness Mono Repo
+A terminal-based agent that takes competitive programming problems and returns finished solutions. Enter the problem once, get the code.
 
-This is the home of the pi agent harness project including our self extensible coding agent.
+```
+$ dotpp solve
 
-* **[@earendil-works/pi-coding-agent](packages/coding-agent)**: Interactive coding agent CLI
-* **[@earendil-works/pi-agent-core](packages/agent)**: Agent runtime with tool calling and state management
-* **[@earendil-works/pi-ai](packages/ai)**: Unified multi-provider LLM API (OpenAI, Anthropic, Google, …)
+╔══════════════════════════════════════════════════════════╗
+║  Competitive Programming Solver                         ║
+╠══════════════════════════════════════════════════════════╣
+║                                                         ║
+║  Title: Two Sum                                         ║
+║  ──────────────────────────────────────────────          ║
+║  Statement: Given an array of integers and a target,    ║
+║  return indices of two numbers that add up to target.   ║
+║                                                         ║
+║  Examples:                                              ║
+║  ┌─ Example 1 ──────────────────────────────────────┐   ║
+║  │  Input:  [2,7,11,15], target=9                   │   ║
+║  │  Output: [0,1]                                   │   ║
+║  │  Why:    indices 0 and 1 sum to 9                │   ║
+║  └──────────────────────────────────────────────────┘   ║
+║  [+ Add Example]                                        ║
+║                                                         ║
+║  [Submit]  [Cancel]                                     ║
+╚══════════════════════════════════════════════════════════╝
 
-To learn more about pi:
+Solving...
 
-* [Visit pi.dev](https://pi.dev), the project website with demos
-* [Read the documentation](https://pi.dev/docs/latest), but you can also ask the agent to explain itself
+╔══════════════════════════════════════════════════════════╗
+║  Solution                                               ║
+╠══════════════════════════════════════════════════════════╣
+║  def twoSum(nums, target):                              ║
+║      seen = {}                                          ║
+║      for i, n in enumerate(nums):                       ║
+║          complement = target - n                        ║
+║          if complement in seen:                         ║
+║              return [seen[complement], i]               ║
+║          seen[n] = i                                    ║
+║  return []                                              ║
+╚══════════════════════════════════════════════════════════╝
 
-## Share your OSS coding agent sessions
+Provide feedback? (y/n): _
+```
 
-If you use pi or other coding agents for open source work, please share your sessions.
+</div>
 
-Public OSS session data helps improve coding agents with real-world tasks, tool use, failures, and fixes instead of toy benchmarks.
+## Why dotpp?
 
-For the full explanation, see [this post on X](https://x.com/badlogicgames/status/2037811643774652911).
+Most LLM coding tools are built for general software engineering. They don't understand competitive programming problems, don't know how to present examples, and require you to paste raw text into a chat window.
 
-To publish sessions, use [`badlogic/pi-share-hf`](https://github.com/badlogic/pi-share-hf). Read its README.md for setup instructions. All you need is a Hugging Face account, the Hugging Face CLI, and `pi-share-hf`.
+**dotpp** is purpose-built for competitive programming:
 
-You can also watch [this video](https://x.com/badlogicgames/status/2041151967695634619), where I show how I publish my `pi-mono` sessions.
+- Structured problem entry (title, statement, examples with explanations)
+- Code-only or code-with-explanation output
+- Multi-turn iteration with feedback
+- Language-agnostic solutions
+- Runs in your terminal, no GUI needed
 
-I regularly publish my own `pi-mono` work sessions here:
+## Architecture
 
-- [badlogicgames/pi-mono on Hugging Face](https://huggingface.co/datasets/badlogicgames/pi-mono)
+```mermaid
+graph TB
+    subgraph "User Input"
+        A[Problem Form] --> B[Structured Problem]
+    end
 
-## All Packages
+    subgraph "Solving Engine"
+        B --> C[Prompt Template]
+        C --> D[LLM API]
+        D --> E[Solution Parser]
+    end
 
-| Package | Description |
+    subgraph "Output"
+        E --> F[Code Display]
+        E --> G[Explanation]
+    end
+
+    subgraph "Iteration"
+        F --> H{User Feedback?}
+        H -->|Yes| I[Feedback + Context]
+        I --> C
+        H -->|No| J[Done]
+    end
+```
+
+## How It Works
+
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant F as Form
+    participant S as Solver
+    participant L as LLM
+
+    U->>F: Enter problem details
+    F->>S: Structured Problem object
+    S->>S: Build prompt from template
+    S->>L: Send to LLM
+    L-->>S: Return solution
+    S->>S: Parse code + explanation
+    S-->>U: Display results
+    U-->>S: Optional feedback
+    S->>L: Revise with context
+    L-->>S: Updated solution
+    S-->>U: Display revised results
+```
+
+## Features
+
+| Feature | Description |
 |---------|-------------|
-| **[@earendil-works/pi-ai](packages/ai)** | Unified multi-provider LLM API (OpenAI, Anthropic, Google, etc.) |
-| **[@earendil-works/pi-agent-core](packages/agent)** | Agent runtime with tool calling and state management |
-| **[@earendil-works/pi-coding-agent](packages/coding-agent)** | Interactive coding agent CLI |
-| **[@earendil-works/pi-tui](packages/tui)** | Terminal UI library with differential rendering |
+| **Structured Input** | Title, statement, and unlimited examples with explanations |
+| **Code + Explanation** | Toggle between code-only and code-with-complexity-analysis modes |
+| **Multi-turn Iteration** | Provide feedback and get revised solutions |
+| **Language Agnostic** | Works with Python, C++, Java, Rust, and more |
+| **Terminal Native** | TUI interface, no browser, no GUI |
+| **Multiple Providers** | Claude, GPT-4, Gemini, Mistral, and 900+ models |
 
-For Slack/chat automation and workflows see [earendil-works/pi-chat](https://github.com/earendil-works/pi-chat).
+## Installation
 
-## Permissions & Containerization
+```bash
+# Clone the repository
+git clone https://github.com/YOUR_USERNAME/dotpp.git
+cd dotpp
 
-Pi does not include a built-in permission system for restricting filesystem, process, network, or credential access. By default, it runs with the permissions of the user and process that launched it.
+# Install dependencies
+npm install
 
-If you need stronger boundaries, containerize or sandbox Pi. See [packages/coding-agent/docs/containerization.md](packages/coding-agent/docs/containerization.md) for three patterns:
+# Build
+npm run build
 
-- **OpenShell**: run the whole `pi` process in a policy-controlled sandbox.
-- **Gondolin extension**: keep `pi` and provider auth on the host while routing built-in tools and `!` commands into a local Linux micro-VM.
-- **Plain Docker**: run the whole `pi` process in a local container for simple isolation.
+# Link globally (optional)
+npm link
+```
 
-## Contributing
+## Quick Start
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines and [AGENTS.md](AGENTS.md) for project-specific rules (for both humans and agents).
+```bash
+# Start solving
+dotpp solve
+
+# With explanation mode
+dotpp solve --explain
+```
+
+## Configuration
+
+Set your API key as an environment variable:
+
+```bash
+# Anthropic
+export ANTHROPIC_API_KEY="sk-ant-..."
+
+# OpenAI
+export OPENAI_API_KEY="sk-..."
+
+# Google
+export GOOGLE_API_KEY="..."
+```
+
+## Project Structure
+
+```
+dotpp/
+├── packages/
+│   ├── ai/              # Unified LLM API (900+ models)
+│   ├── agent-core/      # Agent runtime
+│   ├── coding-agent/    # CLI + TUI
+│   │   └── src/
+│   │       ├── solver/     # Problem solving engine
+│   │       ├── forms/      # TUI components
+│   │       └── commands/   # CLI commands
+│   └── tui/             # Terminal UI components
+└── docs/
+    ├── brainstorms/     # Requirements docs
+    └── plans/           # Implementation plans
+```
 
 ## Development
 
 ```bash
-npm install --ignore-scripts  # Install all dependencies without running lifecycle scripts
-npm run build        # Build all packages
-npm run check        # Lint, format, and type check
-./test.sh            # Run tests (skips LLM-dependent tests without API keys)
-./pi-test.sh         # Run pi from sources (can be run from any directory)
+# Run tests
+npm run test
+
+# Type check
+npm run check
+
+# Build all packages
+npm run build
+
+# Build binary (requires Bun)
+npm run build:binary
 ```
 
-## Supply-chain hardening
+## Contributing
 
-We treat npm dependency changes as reviewed code changes.
+Contributions welcome. Please:
 
-- Direct external dependencies are pinned to exact versions. Internal workspace packages remain version-ranged.
-- `.npmrc` sets `save-exact=true` and `min-release-age=2` to avoid same-day dependency releases during npm resolution.
-- `package-lock.json` is the dependency ground truth. Pre-commit blocks accidental lockfile commits unless `PI_ALLOW_LOCKFILE_CHANGE=1` is set.
-- `npm run check` verifies pinned direct deps, native TypeScript import compatibility, and the generated coding-agent shrinkwrap.
-- The published CLI package includes `packages/coding-agent/npm-shrinkwrap.json`, generated from the root lockfile, to pin transitive deps for npm users.
-- Release smoke tests use `npm run release:local` to build, pack, and create isolated npm and Bun installs outside the repo before tagging a release.
-- Local release installs, documented npm installs, and `pi update --self` use `--ignore-scripts` where supported.
-- CI installs with `npm ci --ignore-scripts`, and a scheduled GitHub workflow runs `npm audit --omit=dev` plus `npm audit signatures --omit=dev`.
-- Shrinkwrap generation has an explicit allowlist for dependency lifecycle scripts; new lifecycle-script deps fail checks until reviewed.
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feat/my-feature`)
+3. Commit your changes (`git commit -m 'feat: add my feature'`)
+4. Push to the branch (`git push origin feat/my-feature`)
+5. Open a Pull Request
+
+## Roadmap
+
+- [ ] Problem import from URLs
+- [ ] Language selection UI
+- [ ] Custom test case execution
+- [ ] Problem bank and progress tracking
+- [ ] Contest simulator mode
+- [ ] Platform integration (Codeforces, LeetCode, AtCoder)
 
 ## License
 
 MIT
+
+---
+
+<div align="center">
+
+**Built with [pi](https://github.com/earendil-works/pi) agent harness.**
+
+</div>
+]]>
